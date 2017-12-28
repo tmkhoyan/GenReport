@@ -1,0 +1,8 @@
+1. Create a folder 
+if no input isd given create notes in the notes folder with current date
+if date is given create current date in negeral notes
+2. Create a file or copy and rename
+3. Open fie in folder in sublime 
+
+
+subl ./bla/
