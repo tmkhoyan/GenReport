@@ -9,27 +9,27 @@ title="GenReport"
 promt="Select report type"
 
 #0: select type of report
-opt=$(zenity --title="$title" --text="$prompt" --list --column="Options" "${options[@]}")
+opt=$(zenity --title="$title" --text="$prompt" --list --column="Options" "${options[@]}" 2>/dev/null) 
 
 case "${opt}" in
 	"${options[0]}") str="coen/"                    ;;
 	"${options[1]}") str="PHDs/"                 ;;
 	"${options[2]}") str="monthly/"                    ;;
-    *) str="temp"								  ;;
+    *) str="temp/"								  ;;
 esac 
 #update rootpath
 rootpath+=$str
-echo "selected: ${opt} in path: ${rootpath}"
+echo "GenReport-Message: selected: ${opt} in path: ${rootpath}"
 
 #1: calendar date selection prompt
-returndate=$(zenity --calendar --title="GenReport: date selection" --text="Select a report date from below.")
+returndate=$(zenity --calendar --title="GenReport: date selection" --text="Select a report date from below." 2>/dev/null)
 #default is current date else returnvar
-datestr=${returndate:-$(date +%d-%m-%y)}; echo "selected date is: "$datestr;
+datestr=${returndate:-$(date +%d-%m-%y)}; echo "GenReport-Message: selected date is: "$datestr;
 # append to filename "${flname}_${datestr}"
 flname+="_"$datestr
 #2: ask to create  folder
 path=$datestr
-zenity --question --title="Generate Folder" --text="Would you like to generate folder: "${path}
+zenity --question --title="Generate Folder" --text="Would you like to generate folder: "${path} 2>/dev/null
 #echo $?
 if [ $? -ne 0 ]; then 
 	option="no"
@@ -39,14 +39,14 @@ else
 	option="yes" 
 	dirpath=${rootpath}${datestr}"/"
 	#check if directory exhist if open the file in temp folder
-	if ! mkdir "${dirpath}" 2>/dev/null; then
-		 echo "Directory [${dirpath}] already exists creating a file in temp folder."; 
+	if ! mkdir -p "${dirpath}" 2>/dev/null; then
+		 echo "GenReport-Message: Directory [${dirpath}] already exists creating a file in temp folder."; 
 		 dirpath="${rootpath}temp/"
 		 mkdir "${dirpath}"
 	else
-		echo "Directory ${dirpath} created. Opening sublime..."
+		echo "GenReport-Message: Directory ${dirpath} created. Opening sublime..."
 	fi
 	#open sublime folder and open the file with appended dir 
 	subl -n "${dirpath}" && subl "${dirpath}${flname}"
 fi
-echo $option
+echo "GenReport-Message: selected option: ${option}"
