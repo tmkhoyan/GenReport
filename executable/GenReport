@@ -1,10 +1,10 @@
 #!/bin/bash
 
-rootpath="/home/tigran/ownCloud/Smart-X PhD/Smart-X meetings/"
+rootpath="/home/tigran/ownCloud/SMART-X/SMART-X PHD/MEETINGS/"
 flname="preport_tmkhoyan" 
 
 #selector options
-options=("Meeting Coen" "Smart-X team meeting" "Monthly meeting")
+options=("C&S - Coen meeting" "Smart-X team meeting" "Smart-X project meeting")
 title="GenReport"
 promt="Select report type"
 
@@ -12,9 +12,9 @@ promt="Select report type"
 opt=$(zenity --title="$title" --text="$prompt" --list --column="Options" "${options[@]}" 2>/dev/null) 
 
 case "${opt}" in
-	"${options[0]}") str="coen/"                    ;;
+	"${options[0]}") str="CONTROL/"                    ;;
 	"${options[1]}") str="PHDs/"                 ;;
-	"${options[2]}") str="monthly/"                    ;;
+	"${options[2]}") str="PROJECT/"                    ;;
     *) str="temp/"								  ;;
 esac 
 #update rootpath
